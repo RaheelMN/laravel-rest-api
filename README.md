@@ -1,66 +1,118 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+First React laravel application
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+1. Create Project
+   
+   In laravel if we building and api application then we use following options during project creation
+   
+   laravel create rest-api
+   
+   breeze
+   
+   api
+   
+   mysql
+   
+   Breeze command removes blade template and adds auth.php in route folder to manage user login and registration.
 
-## About Laravel
+2. Database
+   
+   Data base used in project is called rest_api.
+   
+   It has table name skills. Table has five columns
+   
+   id,name,slug,created_at,updated_at
+   
+   id field auto increments. created_at and updated_at have datatype times timestamp and values added automatically at time of insertion and
+   updation.
+   
+4. Routes
+   
+   All routes are defined in api.php file.
+   
+   API application has version numbers which are updated from time to time. To access resource url should include domain_name/api/versionNo
+   
+   All routes are group by prefix v1 and then pass through apiResource function.
+   
+   In apiResource controller SkillController and url /skills is used.
+   
+   apiResource uses build in functions in skillController based on request method and url.
+   
+   If request method is get and url is skills then it calles index() function
+   
+   If request method is get and url has parameter ie /skills/id-number then it calls show(Skill $request) function
+   
+   Where Skill is model name corresponding to skills table.
+   
+   If request method is post and url is skills then it calls store(StoreSkillRequest $request)
+   
+   Where StoreSkillRequest is used in authorization, validation and property merging and its variable contains json data.
+   
+   If request method is put and url is /skills/id-number then it calls update(StoreSkillRequest $request,Skill $skill)
+   
+   Where json data is stored in $request and id is stored in $skill.
+   
+   If request method is patch and url is /skills/id-number then it calls update(StoreSkillRequest $request,Skill $skill)
+   
+   Where json data is stored in $request and id is stored in $skill.
+   
+   Patch is used if some of the columns of record are to be updated.
+   
+   If request method is delete and url is /skills then delete(Skill $skill) funtion is called.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+6. Model
+   
+   To create a model we use command
+   
+   php atisan make:model Skill --all
+   
+   Where all command creates Skill Model, StoreSkillRequest,SleepFactory,SleepSeeder, migration file, SkillController and SleepPolicy.
+   
+   Some of these files are explained in next section.
+   
+   In Skill model file if we donot want to use timestamp then we can use variable $timestamp = false.
+   
+   Similarly it as array $fillable which contain column names than can be updated or records added to.
+   
+   Suppose we have Skill object $skill, then $skill->create() and $skill->update() will only effect columns in $fillable array
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+8. Migration, factory, Seeding
+    
+   Once migration, factory and seeding files are created we can use then to create table skills and populate it using SkillFactory and
+   
+   SkillSeeder file. In SkillFactory we define fake data types for columns with properties such as unique or selection crietaria such as
+   
+   inbetween, less then etc.
+   
+   In SkillSeeder we define number of rows to of table to be populated using factory's fake data.
+   
+   To execute all of them we use command: php artisan migrate:fresh --seed
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
-
-## Learning Laravel
-
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
-
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
-
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains over 2000 video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
-
-## Laravel Sponsors
-
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the Laravel [Patreon page](https://patreon.com/taylorotwell).
-
-### Premium Partners
-
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Cubet Techno Labs](https://cubettech.com)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[Many](https://www.many.co.uk)**
-- **[Webdock, Fast VPS Hosting](https://www.webdock.io/en)**
-- **[DevSquad](https://devsquad.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[OP.GG](https://op.gg)**
-- **[WebReinvent](https://webreinvent.com/?utm_source=laravel&utm_medium=github&utm_campaign=patreon-sponsors)**
-- **[Lendio](https://lendio.com)**
-
-## Contributing
-
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
-
-## Code of Conduct
-
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
-
-## Security Vulnerabilities
-
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
-
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+10. Request/Response/Controller
+    
+   When browser send a post,put,patch request it first StoreSkillRequest file for authrisation check then validation check. If user is not
+   authorise in case of token requirement then error message is returned. Then data is checked for validation in rules() function. If there is       matching error then error message with status code 422 is sent to client.
+   
+   Then validated data is stored using create or update command based on request.
+   
+   If client request record details against id then request is stored in Skill object $skill. It stores all record information related to id.
+   We then pass it to response object where we define columns names and their values that are to be return to client. We can change column
+   name with respect to column name in database table and we can exclude column name, if we donot want client to access it ie password column
+   or timestamp column etc.
+   
+   If request is to list skills then in index() function. We can return
+   
+   Skill::all() or   Skill::->paginate() but these functions return all columns. To restrict columns we use
+   
+   SkillResource::collection(Skill->pagination()) or SkillCollection(Skill->paginate()). SkillCollection use SkillResource for all records and
+   return only fields in SkillResource
+   
+   Search is not part of apiResource. If we want to search name with wildcard %a% we have to create our own function for route
+   
+   url: https://localhost:8000/api/v1/search/a
+   
+   Route::get('/search/{name}',[SkillController::class,'search'])
+   
+   In controller's search function we use where clause and use like
+   
+   
+   
